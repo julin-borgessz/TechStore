@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dicionário de Dados &amp; Governança | TechStore — Distribuição Eletrônica</title>
+    <!-- FontAwesome 6.5.1 (CDN Oficial) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Folha de Estilos Customizada -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- TOPBAR -->
+    <header class="topbar">
+        <div class="topbar-left">
+            <button id="sidebarToggle" class="btn-icon mobile-only" aria-label="Abrir menu de navegação">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="brand">
+                <span class="brand-badge">DATA GOVERNANCE PORTAL</span>
+                <h1>TechStore — Distribuição Eletrônica</h1>
+            </div>
+        </div>
+        <div class="topbar-right">
+            <span class="version-pill">ERP Vendas &amp; Estoque v1.1</span>
+            <button id="themeToggle" class="btn-theme" aria-label="Alternar tema claro ou escuro">
+                <i class="fas fa-moon" id="themeIcon"></i>
+                <span id="themeLabel">Dark Mode</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="layout-wrapper">
+        <!-- SIDEBAR ESQUERDA -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>Entidades do Banco (11)</h2>
+                <span class="schema-tag">Schema: mydb</span>
+            </div>
+            <nav class="sidebar-nav" id="sidebarNav">
+                <ul>
+                    <li><a href="#tabela_categoria" class="nav-link"><i class="fas fa-table"></i> categoria</a></li>
+                    <li><a href="#tabela_cliente" class="nav-link"><i class="fas fa-table"></i> cliente</a></li>
+                    <li><a href="#tabela_endereco" class="nav-link"><i class="fas fa-table"></i> endereco</a></li>
+                    <li><a href="#tabela_estorno_pedido" class="nav-link"><i class="fas fa-table"></i> estorno_pedido</a></li>
+                    <li><a href="#tabela_forma_pagamento" class="nav-link"><i class="fas fa-table"></i> forma_pagamento</a></li>
+                    <li><a href="#tabela_historico_preco" class="nav-link"><i class="fas fa-table"></i> historico_preco</a></li>
+                    <li><a href="#tabela_item_pedido" class="nav-link"><i class="fas fa-table"></i> item_pedido</a></li>
+                    <li><a href="#tabela_log_auditoria" class="nav-link"><i class="fas fa-table"></i> log_auditoria</a></li>
+                    <li><a href="#tabela_pedido" class="nav-link"><i class="fas fa-table"></i> pedido</a></li>
+                    <li><a href="#tabela_produto" class="nav-link"><i class="fas fa-table"></i> produto</a></li>
+                    <li><a href="#tabela_usuario" class="nav-link"><i class="fas fa-table"></i> usuario</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <p>Padrão DAMA-DMBOK &amp; COBIT</p>
+                <p>Conformidade LGPD / CTN</p>
+            </div>
+        </aside>
+
+        <!-- ÁREA PRINCIPAL -->
+        <main class="main-content">
+            <!-- SEÇÃO DE IDENTIFICAÇÃO DO PROJETO -->
+            <section class="project-id-card" aria-labelledby="project-id-title">
+                <div class="card-header-line">
+                    <h2 id="project-id-title">Identificação e Governança do Projeto de Modelagem</h2>
+                    <span class="orientador-badge">Orientador: Prof. Dr. Diego Carvalho</span>
+                </div>
+                <div class="id-grid">
+                    <div class="id-block">
+                        <h3>1. Escopo do Projeto</h3>
+                        <p>Sistema ERP de Gestão de Vendas e Estoque v1.1 voltado à operação de Ponto de Venda (PDV) físico da TechStore — Distribuição Eletrônica. Abrange controle de catálogo, baixa atômica de estoque, vendas no balcão, estornos auditáveis conforme o CDC, trilha de auditoria append-only e proteção de dados pessoais (criptografia AES-256 e anonimização) em conformidade com a LGPD e retenção fiscal do CTN.</p>
+                    </div>
+                    <div class="id-block">
+                        <h3>2. Tecnologia e Arquitetura</h3>
+                        <ul class="tech-list">
+                            <li><strong>SGBD:</strong> MySQL 8.0+</li>
+                            <li><strong>Engine:</strong> InnoDB (ACID)</li>
+                            <li><strong>Charset DDL:</strong> UTF8 / UTF8MB4</li>
+                            <li><strong>Total de Tabelas:</strong> 11 Entidades</li>
+                        </ul>
+                    </div>
+                    <div class="id-block">
+                        <h3>3. Responsáveis (Data Governance)</h3>
+                        <ul class="roles-list">
+                            <li><strong>Data Owner:</strong> Júlio Cesar dos Santos Borges (RA: 47881909) — Definição de regras de negócio, políticas de retenção fiscal e aprovação de acessos.</li>
+                            <li><strong>Data Steward:</strong> Rafael Sterzinger Silva (RA: 47588250) — Qualidade técnica dos metadados, curadoria do dicionário de dados, linhagem e conformidade LGPD.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PAINEL DE CONTROLE ACIMA DO DICIONÁRIO -->
+            <section class="control-panel" aria-label="Controles e Pesquisa do Dicionário">
+                <div class="action-buttons">
+                    <a href="docs/Especificacao_Requisitos_Regras_Negocio_BD.pdf" target="_blank" download class="btn btn-primary">
+                        <i class="fas fa-file-pdf"></i> Baixar Especificação de Requisitos (PDF)
+                    </a>
+                    <button type="button" id="openDerModalBtn" class="btn btn-secondary">
+                        <i class="fas fa-project-diagram"></i> Visualizar DER Interativo
+                    </button>
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="dictionarySearch" placeholder="Filtrar por nome da tabela, atributo, tipo ou regra..." aria-label="Pesquisar no dicionário de dados">
+                    <button type="button" id="clearSearchBtn" class="btn-clear" title="Limpar pesquisa" style="display: none;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- LEGENDA DE PRIVACIDADE LGPD -->
+            <div class="legend-bar">
+                <span class="legend-title">Classificação LGPD/GDPR:</span>
+                <span class="badge-lgpd badge-dps">[DPS] Dado Pessoal Sensível</span>
+                <span class="badge-lgpd badge-dp">[DP] Dado Pessoal</span>
+                <span class="badge-lgpd badge-na">[N/A] Não Aplicável / Dado Corporativo</span>
+                <span id="filterCounter" class="filter-counter">Exibindo 11 de 11 tabelas</span>
+            </div>
+
+            <!-- CONTAINER DAS TABELAS DO DICIONÁRIO -->
+            <div id="tablesContainer">
+
+                <!-- 1. TABELA: categoria -->
+                <section class="dict-section" id="tabela_categoria" data-table-name="categoria">
+                    <div class="section-header">
+                        <div>
+                            <h3>Tabela: <code>categoria</code></h3>
+                            <p class="table-purpose">Armazena as categorias de classificação mercadológica dos produtos eletrônicos comercializados no ERP.</p>
+                        </div>
+                        <span class="engine-tag">InnoDB | 4 Colunas</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="dict-table">
+                            <thead>
+                                <tr>
+                                    <th>Atributo</th>
+                                    <th>Descrição / Regra de Negócio</th>
+                                    <th>Tipo e Tamanho</th>
+                                    <th>Constraints</th>
+                                    <th>Privacidade (LGPD)</th>
+                                    <th>Linhagem (Data Lineage)</th>
+                                    <th>Controle de Acesso (RBAC)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="col-attr">id_categoria</td>
+                                    <td>Identificador numérico único da categoria de produto no sistema.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Cadastro ERP (RF05) &rarr; Destino: Referenciado em <code>produto</code></td>
+                                    <td>Leitura: Todos | Escrita: Gerente, Admin</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">nome</td>
+                                    <td>Nome único da categoria (ex.: Smartphones, Periféricos). Não permite duplicidade.</td>
+                                    <td><code>VARCHAR(50)</code></td>
+                                    <td><strong>[NOT NULL] [UNIQUE]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Input Gerencial (RF05) &rarr; Destino: Catálogo PDV e Relatórios</td>
+                                    <td>Leitura: Todos | Escrita: Gerente, Admin</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">ativo</td>
+                                    <td>Indicador lógico de disponibilidade da categoria (1 = Ativo, 0 = Inativo).</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Módulo Administrativo &rarr; Destino: Filtro de Catálogo</td>
+                                    <td>Leitura: Todos | Escrita: Gerente, Admin</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">deletado_em_data</td>
+                                    <td>Registro textual da data/hora de inativação lógica (soft delete) para preservação de histórico.</td>
+                                    <td><code>VARCHAR(45)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Rotina de Exclusão Lógica (PR01) &rarr; Destino: Auditoria Interna</td>
+                                    <td>Leitura: Gerente, Admin | Escrita: Admin</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 2. TABELA: cliente -->
+                <section class="dict-section" id="tabela_cliente" data-table-name="cliente">
+                    <div class="section-header">
+                        <div>
+                            <h3>Tabela: <code>cliente</code></h3>
+                            <p class="table-purpose">Cadastro mestre dos consumidores do PDV, contemplando criptografia de documento fiscal e controle de anonimização LGPD.</p>
+                        </div>
+                        <span class="engine-tag">InnoDB | 8 Colunas</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="dict-table">
+                            <thead>
+                                <tr>
+                                    <th>Atributo</th>
+                                    <th>Descrição / Regra de Negócio</th>
+                                    <th>Tipo e Tamanho</th>
+                                    <th>Constraints</th>
+                                    <th>Privacidade (LGPD)</th>
+                                    <th>Linhagem (Data Lineage)</th>
+                                    <th>Controle de Acesso (RBAC)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="col-attr">id_cliente</td>
+                                    <td>Identificador único do cliente no banco de dados.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Cadastro PDV (RF01) &rarr; Destino: <code>endereco</code>, <code>pedido</code></td>
+                                    <td>Leitura: Atendente, Gerente, Admin | Escrita: Sistema</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">nome</td>
+                                    <td>Nome completo do cliente ou string padronizada ('CLIENTE ANONIMIZADO') após execução da LGPD.</td>
+                                    <td><code>VARCHAR(100)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-dp">[DP]</span></td>
+                                    <td>Origem: Input Balcão PDV (RF01) &rarr; Destino: Comprovante de Venda / Anonimização (PR03)</td>
+                                    <td>Leitura: Atendente, Gerente, Admin | Escrita: Atendente, Gerente</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">cpf_varbinary</td>
+                                    <td>CPF armazenado em repouso com criptografia AES-256 ou hash SHA-256 truncado após anonimização (PR03).</td>
+                                    <td><code>VARBINARY(255)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-dps">[DPS]</span></td>
+                                    <td>Origem: Input PDV via AES_ENCRYPT &rarr; Destino: Validação Fiscal / Anonimização LGPD</td>
+                                    <td>Leitura: Gerente, Admin (Descriptografia restrita) | Escrita: Aplicação ERP</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">email</td>
+                                    <td>Endereço de correio eletrônico de contato do cliente. Substituído em rotina de esquecimento (RF08).</td>
+                                    <td><code>VARCHAR(100)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-dp">[DP]</span></td>
+                                    <td>Origem: Input Cadastro Cliente (RF01) &rarr; Destino: Comunicação Pós-Venda</td>
+                                    <td>Leitura: Atendente, Gerente, Admin | Escrita: Atendente, Gerente</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">telefone</td>
+                                    <td>Número de telefone principal com DDD para contato comercial ou suporte de garantia.</td>
+                                    <td><code>VARCHAR(20)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-dp">[DP]</span></td>
+                                    <td>Origem: Input Cadastro Cliente (RF01) &rarr; Destino: Atendimento Pós-Venda</td>
+                                    <td>Leitura: Atendente, Gerente, Admin | Escrita: Atendente, Gerente</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">status_lgpd</td>
+                                    <td>Situação de conformidade de privacidade do titular ('REGULAR' ou 'ANONIMIZADO') conforme Art. 18 da LGPD.</td>
+                                    <td><code>VARCHAR(45)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Cadastro / Procedure LGPD (RF08) &rarr; Destino: Governança de Privacidade</td>
+                                    <td>Leitura: Gerente, Admin | Escrita: Gerente, Admin</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">ativo</td>
+                                    <td>Indicador de status cadastral (1 = Ativo, 0 = Inativo). Clientes com ativo = 0 são bloqueados para novos pedidos (RN02).</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Gestão Cadastral &rarr; Destino: Validação de Abertura de Pedido (RN02)</td>
+                                    <td>Leitura: Todos | Escrita: Gerente, Admin</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">deletado_em_data</td>
+                                    <td>Data e hora da exclusão lógica do cliente, preservando o vínculo histórico com pedidos fiscais (PR01).</td>
+                                    <td><code>DATETIME</code></td>
+                                    <td><strong>[NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Soft Delete Cadastral (PR01) &rarr; Destino: Auditoria e Retenção CTN</td>
+                                    <td>Leitura: Gerente, Admin | Escrita: Admin</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 3. TABELA: endereco -->
+                <section class="dict-section" id="tabela_endereco" data-table-name="endereco">
+                    <div class="section-header">
+                        <div>
+                            <h3>Tabela: <code>endereco</code></h3>
+                            <p class="table-purpose">Armazena os dados de localização residencial ou comercial vinculados ao cadastro de clientes.</p>
+                        </div>
+                        <span class="engine-tag">InnoDB | 9 Colunas</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="dict-table">
+                            <thead>
+                                <tr>
+                                    <th>Atributo</th>
+                                    <th>Descrição / Regra de Negócio</th>
+                                    <th>Tipo e Tamanho</th>
+                                    <th>Constraints</th>
+                                    <th>Privacidade (LGPD)</th>
+                                    <th>Linhagem (Data Lineage)</th>
+                                    <th>Controle de Acesso (RBAC)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="col-attr">id_endereco</td>
+                                    <td>Identificador sequencial do registro de endereço. Compõe a chave primária composta no DDL.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Cadastro de Cliente (RF01) &rarr; Destino: Identificação Interna</td>
+                                    <td>Leitura: Atendente, Gerente, Admin | Escrita: Sistema</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">logradouro</td>
+                                    <td>Nome da via pública (rua, avenida, alameda, travessa) do cliente.</td>
+                                    <td><code>VARCHAR(150)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-dp">[DP]</span></td>
+                                    <td>Origem: Input PDV / Consulta CEP &rarr; Destino: Entrega / Documentação</td>
+                                    <td>Leitura: Atendente, Gerente, Admin | Escrita: Atendente, Gerente</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">numero</td>
+                                    <td>Número predial ou identificador do lote do imóvel.</td>
+                                    <td><code>VARCHAR(20)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-dp">[DP]</span></td>
+                                    <td>Origem: Input Cadastro Cliente (RF01) &rarr; Destino: Endereçamento</td>
+                                    <td>Leitura: Atendente, Gerente, Admin | Escrita: Atendente, Gerente</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">complemento</td>
+                                    <td>Informações adicionais de localização (apartamento, bloco, sala, fundos). Campo opcional.</td>
+                                    <td><code>VARCHAR(50)</code></td>
+                                    <td><strong>[NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-dp">[DP]</span></td>
+                                    <td>Origem: Input Cadastro Cliente (RF01) &rarr; Destino: Endereçamento</td>
+                                    <td>Leitura: Atendente, Gerente, Admin | Escrita: Atendente, Gerente</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">bairro</td>
+                                    <td>Bairro, vila ou distrito correspondente ao endereço do cliente.</td>
+                                    <td><code>VARCHAR(50)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-dp">[DP]</span></td>
+                                    <td>Origem: Input PDV / Base CEP &rarr; Destino: Segmentação Geográfica</td>
+                                    <td>Leitura: Atendente, Gerente, Admin | Escrita: Atendente, Gerente</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">cep</td>
+                                    <td>Código de Endereçamento Postal no formato 00000-000.</td>
+                                    <td><code>VARCHAR(9)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-dp">[DP]</span></td>
+                                    <td>Origem: Input Cadastro Cliente (RF01) &rarr; Destino: Logística / Cadastro</td>
+                                    <td>Leitura: Atendente, Gerente, Admin | Escrita: Atendente, Gerente</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">cidade</td>
+                                    <td>Nome do município de residência ou sede do cliente.</td>
+                                    <td><code>VARCHAR(50)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-dp">[DP]</span></td>
+                                    <td>Origem: Input PDV / Base CEP &rarr; Destino: Relatórios Regionais</td>
+                                    <td>Leitura: Atendente, Gerente, Admin | Escrita: Atendente, Gerente</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">uf</td>
+                                    <td>Sigla de 2 caracteres da Unidade da Federação (Estado brasileiro).</td>
+                                    <td><code>CHAR(2)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-dp">[DP]</span></td>
+                                    <td>Origem: Input PDV / Base CEP &rarr; Destino: Tributação / Relatórios</td>
+                                    <td>Leitura: Atendente, Gerente, Admin | Escrita: Atendente, Gerente</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">cliente_id_cliente</td>
+                                    <td>Chave estrangeira e parte da chave primária composta que vincula o endereço ao titular em <code>cliente</code>.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [FK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: <code>cliente.id_cliente</code> &rarr; Destino: Integridade Referencial <code>endereco</code></td>
+                                    <td>Leitura: Atendente, Gerente, Admin | Escrita: Sistema</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 4. TABELA: estorno_pedido -->
+                <section class="dict-section" id="tabela_estorno_pedido" data-table-name="estorno_pedido">
+                    <div class="section-header">
+                        <div>
+                            <h3>Tabela: <code>estorno_pedido</code></h3>
+                            <p class="table-purpose">Registra formalmente cancelamentos, devoluções e estornos financeiros em conformidade com o Art. 49 do CDC e retenção fiscal (PR01/PR02).</p>
+                        </div>
+                        <span class="engine-tag">InnoDB | 7 Colunas</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="dict-table">
+                            <thead>
+                                <tr>
+                                    <th>Atributo</th>
+                                    <th>Descrição / Regra de Negócio</th>
+                                    <th>Tipo e Tamanho</th>
+                                    <th>Constraints</th>
+                                    <th>Privacidade (LGPD)</th>
+                                    <th>Linhagem (Data Lineage)</th>
+                                    <th>Controle de Acesso (RBAC)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="col-attr">id_estorno</td>
+                                    <td>Identificador único do termo de estorno/cancelamento. Compõe a PK composta do DDL.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Módulo Pós-Venda (RF07) &rarr; Destino: Auditoria Fiscal</td>
+                                    <td>Leitura: Gerente, Admin | Escrita: Sistema</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">data_estorno</td>
+                                    <td>Data e hora exata em que a operação de cancelamento/estorno foi efetivada.</td>
+                                    <td><code>DATETIME</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Timestamp Servidor BD &rarr; Destino: Relatórios de Devolução (PR02)</td>
+                                    <td>Leitura: Gerente, Admin | Escrita: Sistema</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">motivo_cancelamento</td>
+                                    <td>Justificativa detalhada obrigatória para o estorno (ex.: arrependimento Art. 49 CDC, defeito técnico).</td>
+                                    <td><code>TEXT(1)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Input Gerencial (RF07) &rarr; Destino: Auditoria Interna e Garantia</td>
+                                    <td>Leitura: Gerente, Admin | Escrita: Gerente, Admin</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">pedido_id_pedido</td>
+                                    <td>Chave estrangeira composta referenciando o identificador do pedido cancelado.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [FK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: <code>pedido.id_pedido</code> &rarr; Destino: Rastreabilidade de Estorno</td>
+                                    <td>Leitura: Gerente, Admin | Escrita: Gerente, Admin</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">pedido_cliente_id_cliente</td>
+                                    <td>Componente da chave estrangeira composta herdada de <code>pedido</code> identificando o cliente da venda.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [FK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: <code>pedido.cliente_id_cliente</code> &rarr; Destino: Vínculo Referencial</td>
+                                    <td>Leitura: Gerente, Admin | Escrita: Sistema</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">pedido_forma_pagamento_id_forma_pagamento</td>
+                                    <td>Componente da chave estrangeira composta herdada de <code>pedido</code> identificando a modalidade financeira original.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [FK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: <code>pedido.forma_pagamento_id_forma_pagamento</code> &rarr; Destino: Conciliação Estorno</td>
+                                    <td>Leitura: Gerente, Admin | Escrita: Sistema</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">pedido_usuario_id_usuario</td>
+                                    <td>Componente da chave estrangeira composta herdada de <code>pedido</code> identificando o operador vinculado à chave do pedido.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [FK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: <code>pedido.usuario_id_usuario</code> &rarr; Destino: Rastreabilidade Operacional</td>
+                                    <td>Leitura: Gerente, Admin | Escrita: Sistema</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 5. TABELA: forma_pagamento -->
+                <section class="dict-section" id="tabela_forma_pagamento" data-table-name="forma_pagamento">
+                    <div class="section-header">
+                        <div>
+                            <h3>Tabela: <code>forma_pagamento</code></h3>
+                            <p class="table-purpose">Domínio das modalidades de liquidação financeira aceitas no balcão PDV da TechStore.</p>
+                        </div>
+                        <span class="engine-tag">InnoDB | 3 Colunas</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="dict-table">
+                            <thead>
+                                <tr>
+                                    <th>Atributo</th>
+                                    <th>Descrição / Regra de Negócio</th>
+                                    <th>Tipo e Tamanho</th>
+                                    <th>Constraints</th>
+                                    <th>Privacidade (LGPD)</th>
+                                    <th>Linhagem (Data Lineage)</th>
+                                    <th>Controle de Acesso (RBAC)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="col-attr">id_forma_pagamento</td>
+                                    <td>Identificador único da modalidade de pagamento.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Configuração Financeira &rarr; Destino: <code>pedido</code></td>
+                                    <td>Leitura: Todos | Escrita: Admin</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">descriçao</td>
+                                    <td>Nome único do meio de pagamento (ex.: DINHEIRO, PIX, CARTAO_CREDITO). Mantido conforme identificador exato do DDL.</td>
+                                    <td><code>VARCHAR(50)</code></td>
+                                    <td><strong>[NOT NULL] [UNIQUE]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Cadastro Administrativo &rarr; Destino: Tela de Fechamento PDV (RF02)</td>
+                                    <td>Leitura: Todos | Escrita: Admin</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">ativo</td>
+                                    <td>Indicador de disponibilidade da forma de pagamento no caixa (1 = Ativo, 0 = Inativo).</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Gestão Financeira &rarr; Destino: Filtro de Checkout PDV</td>
+                                    <td>Leitura: Todos | Escrita: Gerente, Admin</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 6. TABELA: historico_preco -->
+                <section class="dict-section" id="tabela_historico_preco" data-table-name="historico_preco">
+                    <div class="section-header">
+                        <div>
+                            <h3>Tabela: <code>historico_preco</code></h3>
+                            <p class="table-purpose">Trilha de auditoria financeira que registra todas as alterações de preços de catálogo, vinculando o produto e o operador responsável.</p>
+                        </div>
+                        <span class="engine-tag">InnoDB | 7 Colunas</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="dict-table">
+                            <thead>
+                                <tr>
+                                    <th>Atributo</th>
+                                    <th>Descrição / Regra de Negócio</th>
+                                    <th>Tipo e Tamanho</th>
+                                    <th>Constraints</th>
+                                    <th>Privacidade (LGPD)</th>
+                                    <th>Linhagem (Data Lineage)</th>
+                                    <th>Controle de Acesso (RBAC)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="col-attr">id_historico_preco</td>
+                                    <td>Identificador sequencial do registro de alteração de preço. Compõe a PK composta do DDL.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Trigger <code>trg_produto_after_update</code> &rarr; Destino: Auditoria Comercial</td>
+                                    <td>Leitura: Gerente, Admin | Escrita: Trigger BD</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">preco_anterior</td>
+                                    <td>Valor unitário praticado antes da modificação no cadastro do produto.</td>
+                                    <td><code>DECIMAL(10,2)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: <code>OLD.preco_atual</code> (Produto) &rarr; Destino: Histórico de Margem</td>
+                                    <td>Leitura: Gerente, Admin | Escrita: Trigger BD</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">preco_novo</td>
+                                    <td>Novo valor unitário atualizado para venda no balcão PDV.</td>
+                                    <td><code>DECIMAL(10,2)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: <code>NEW.preco_atual</code> (Produto) &rarr; Destino: Histórico de Margem</td>
+                                    <td>Leitura: Gerente, Admin | Escrita: Trigger BD</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">data_alteracao</td>
+                                    <td>Data e hora exata em que o reajuste de preço foi gravado no banco.</td>
+                                    <td><code>DATETIME</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Timestamp Servidor BD &rarr; Destino: Linha do Tempo Comercial</td>
+                                    <td>Leitura: Gerente, Admin | Escrita: Trigger BD</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">produto_id_produto</td>
+                                    <td>Chave estrangeira composta referenciando o produto cujo preço foi alterado.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [FK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: <code>produto.id_produto</code> &rarr; Destino: Rastreabilidade de Catálogo (RF03)</td>
+                                    <td>Leitura: Gerente, Admin | Escrita: Trigger BD</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">produto_categoria_id_categoria</td>
+                                    <td>Componente da chave estrangeira composta herdada de <code>produto</code> no DDL.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [FK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: <code>produto.categoria_id_categoria</code> &rarr; Destino: Integridade Referencial</td>
+                                    <td>Leitura: Gerente, Admin | Escrita: Trigger BD</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">usuario_id_usuario</td>
+                                    <td>Chave estrangeira identificando o gerente ou administrador que autorizou a alteração de preço.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [FK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: <code>usuario.id_usuario</code> &rarr; Destino: Responsabilização (Accountability)</td>
+                                    <td>Leitura: Gerente, Admin | Escrita: Trigger BD</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 7. TABELA: item_pedido -->
+                <section class="dict-section" id="tabela_item_pedido" data-table-name="item_pedido">
+                    <div class="section-header">
+                        <div>
+                            <h3>Tabela: <code>item_pedido</code></h3>
+                            <p class="table-purpose">Tabela associativa que detalha os produtos vendidos em cada pedido, congelando o preço histórico, descontos e número de série para garantia (CDC).</p>
+                        </div>
+                        <span class="engine-tag">InnoDB | 9 Colunas</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="dict-table">
+                            <thead>
+                                <tr>
+                                    <th>Atributo</th>
+                                    <th>Descrição / Regra de Negócio</th>
+                                    <th>Tipo e Tamanho</th>
+                                    <th>Constraints</th>
+                                    <th>Privacidade (LGPD)</th>
+                                    <th>Linhagem (Data Lineage)</th>
+                                    <th>Controle de Acesso (RBAC)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="col-attr">quantidade</td>
+                                    <td>Quantidade física vendida do item. Deve ser estritamente maior que zero (RN01) e dispara baixa atômica no estoque (RN04).</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Carrinho PDV (RF02) &rarr; Destino: Abate de Estoque / Cálculo Total</td>
+                                    <td>Leitura: Todos | Escrita: Atendente, Gerente (Pedido ABERTO)</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">preco_unitario_venda</td>
+                                    <td>Preço unitário congelado no instante da venda (RN03). Imutável após finalização do pedido.</td>
+                                    <td><code>DECIMAL(10,2)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Catálogo <code>produto</code> &rarr; Destino: Cálculo de <code>pedido.valor_total</code></td>
+                                    <td>Leitura: Todos | Escrita: Sistema / Trigger (RN03)</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">valor_desconto</td>
+                                    <td>Valor monetário de desconto pontual concedido no item (RN05). Limitado ao subtotal do item.</td>
+                                    <td><code>DECIMAL(10,2)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Input PDV Validado (RF02) &rarr; Destino: Cálculo Líquido do Pedido</td>
+                                    <td>Leitura: Todos | Escrita: Atendente, Gerente</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">numero_serie</td>
+                                    <td>Número de série ou IMEI do equipamento eletrônico vendido para rastreabilidade de garantia e devolução (PR02).</td>
+                                    <td><code>VARCHAR(100)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Leitura Código/Serial PDV &rarr; Destino: Conferência Pós-Venda (Art. 49 CDC)</td>
+                                    <td>Leitura: Todos | Escrita: Atendente, Gerente</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">pedido_id_pedido</td>
+                                    <td>Componente da chave primária e estrangeira composta referenciando o cabeçalho do pedido.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [FK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: <code>pedido.id_pedido</code> &rarr; Destino: Agrupamento de Itens</td>
+                                    <td>Leitura: Todos | Escrita: Sistema</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">pedido_cliente_id_cliente</td>
+                                    <td>Componente da chave primária e estrangeira composta herdada de <code>pedido</code> no DDL.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [FK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: <code>pedido.cliente_id_cliente</code> &rarr; Destino: Integridade Referencial</td>
+                                    <td>Leitura: Todos | Escrita: Sistema</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">pedido_forma_pagamento_id_forma_pagamento</td>
+                                    <td>Componente da chave primária e estrangeira composta herdada de <code>pedido</code> no DDL.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [FK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: <code>pedido.forma_pagamento_id_forma_pagamento</code> &rarr; Destino: Integridade Referencial</td>
+                                    <td>Leitura: Todos | Escrita: Sistema</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">produto_id_produto</td>
+                                    <td>Componente da chave primária e estrangeira composta referenciando o produto vendido.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [FK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: <code>produto.id_produto</code> &rarr; Destino: Movimentação de Estoque</td>
+                                    <td>Leitura: Todos | Escrita: Sistema</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">produto_categoria_id_categoria</td>
+                                    <td>Componente da chave primária e estrangeira composta herdada de <code>produto</code> no DDL.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [FK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: <code>produto.categoria_id_categoria</code> &rarr; Destino: Integridade Referencial</td>
+                                    <td>Leitura: Todos | Escrita: Sistema</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 8. TABELA: log_auditoria -->
+                <section class="dict-section" id="tabela_log_auditoria" data-table-name="log_auditoria">
+                    <div class="section-header">
+                        <div>
+                            <h3>Tabela: <code>log_auditoria</code></h3>
+                            <p class="table-purpose">Trilha de auditoria imutável (append-only) alimentada por triggers para rastreabilidade de operações DML e conformidade COBIT/LGPD (RNF02, SEG-06).</p>
+                        </div>
+                        <span class="engine-tag">InnoDB | 8 Colunas</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="dict-table">
+                            <thead>
+                                <tr>
+                                    <th>Atributo</th>
+                                    <th>Descrição / Regra de Negócio</th>
+                                    <th>Tipo e Tamanho</th>
+                                    <th>Constraints</th>
+                                    <th>Privacidade (LGPD)</th>
+                                    <th>Linhagem (Data Lineage)</th>
+                                    <th>Controle de Acesso (RBAC)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="col-attr">id_log</td>
+                                    <td>Identificador único sequencial do evento de auditoria.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Triggers de Auditoria (RNF02) &rarr; Destino: Compliance / Forense</td>
+                                    <td>Leitura: Admin | Escrita: Apenas Triggers BD (SEG-06)</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">nome_tabela</td>
+                                    <td>Nome da tabela monitorada que sofreu alteração (ex.: cliente, produto, pedido, usuario).</td>
+                                    <td><code>VARCHAR(50)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Metadado da Trigger &rarr; Destino: Filtragem de Trilha de Auditoria</td>
+                                    <td>Leitura: Admin | Escrita: Apenas Triggers BD</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">tipo_operacao</td>
+                                    <td>Comando DML executado sobre o registro (INSERT, UPDATE ou DELETE).</td>
+                                    <td><code>VARCHAR(10)</code></td>
+                                    <td><strong>[NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Evento DML MySQL &rarr; Destino: Classificação de Auditoria</td>
+                                    <td>Leitura: Admin | Escrita: Apenas Triggers BD</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">id_registro_afetado</td>
+                                    <td>Chave primária do registro alterado ou excluído na tabela monitorada (Comentário DDL: PK do registro alterado).</td>
+                                    <td><code>VARCHAR(45)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: <code>OLD.id</code> / <code>NEW.id</code> &rarr; Destino: Rastreamento de Entidade</td>
+                                    <td>Leitura: Admin | Escrita: Apenas Triggers BD</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">valor_anterior</td>
+                                    <td>Snapshot em formato JSON dos atributos antes da alteração, com dados sensíveis mascarados (SEG-04).</td>
+                                    <td><code>JSON</code></td>
+                                    <td><strong>[NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-dp">[DP]</span></td>
+                                    <td>Origem: Registro <code>OLD</code> (UPDATE/DELETE) &rarr; Destino: Auditoria de Integridade</td>
+                                    <td>Leitura: Admin | Escrita: Apenas Triggers BD</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">valor_novo</td>
+                                    <td>Snapshot em formato JSON dos atributos após a inserção ou atualização, sem exposição de senhas ou chaves (SEG-04).</td>
+                                    <td><code>JSON</code></td>
+                                    <td><strong>[NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-dp">[DP]</span></td>
+                                    <td>Origem: Registro <code>NEW</code> (INSERT/UPDATE) &rarr; Destino: Auditoria de Integridade</td>
+                                    <td>Leitura: Admin | Escrita: Apenas Triggers BD</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">usuario_db</td>
+                                    <td>Identificador da sessão/usuário do SGBD MySQL que executou a transação.</td>
+                                    <td><code>VARCHAR(100)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Função <code>CURRENT_USER()</code> MySQL &rarr; Destino: Rastreabilidade Técnica</td>
+                                    <td>Leitura: Admin | Escrita: Apenas Triggers BD</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">data_hora</td>
+                                    <td>Timestamp exato da ocorrência do evento de auditoria.</td>
+                                    <td><code>DATETIME</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Função <code>NOW()</code> MySQL &rarr; Destino: Cronologia de Auditoria</td>
+                                    <td>Leitura: Admin | Escrita: Apenas Triggers BD</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 9. TABELA: pedido -->
+                <section class="dict-section" id="tabela_pedido" data-table-name="pedido">
+                    <div class="section-header">
+                        <div>
+                            <h3>Tabela: <code>pedido</code></h3>
+                            <p class="table-purpose">Cabeçalho das transações de vendas realizadas no balcão PDV, sujeito à retenção fiscal obrigatória de 5 anos (PR01) e máquina de estados (RN05).</p>
+                        </div>
+                        <span class="engine-tag">InnoDB | 7 Colunas</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="dict-table">
+                            <thead>
+                                <tr>
+                                    <th>Atributo</th>
+                                    <th>Descrição / Regra de Negócio</th>
+                                    <th>Tipo e Tamanho</th>
+                                    <th>Constraints</th>
+                                    <th>Privacidade (LGPD)</th>
+                                    <th>Linhagem (Data Lineage)</th>
+                                    <th>Controle de Acesso (RBAC)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="col-attr">id_pedido</td>
+                                    <td>Número identificador único da transação de venda no PDV. Compõe a PK composta do DDL.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Abertura de Venda PDV (RF02) &rarr; Destino: <code>item_pedido</code>, <code>estorno_pedido</code></td>
+                                    <td>Leitura: Todos | Escrita: Sistema</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">data_hora</td>
+                                    <td>Data e hora da emissão do pedido de venda para controle fiscal e fechamento de caixa.</td>
+                                    <td><code>DATETIME</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Timestamp Servidor BD &rarr; Destino: Retenção Fiscal 5 Anos (PR01)</td>
+                                    <td>Leitura: Todos | Escrita: Sistema</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">status</td>
+                                    <td>Estado transacional do pedido: 'ABERTO', 'FINALIZADO' ou 'CANCELADO' (RN05).</td>
+                                    <td><code>VARCHAR(20)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Fluxo PDV / Estorno &rarr; Destino: Triggers de Estoque e Bloqueio de Edição</td>
+                                    <td>Leitura: Todos | Escrita: Atendente (Fechar), Gerente (Cancelar)</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">valor_total</td>
+                                    <td>Montante líquido total do pedido calculado automaticamente a partir da soma dos itens menos descontos (RN05).</td>
+                                    <td><code>DECIMAL(10,2)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Agregação de <code>item_pedido</code> &rarr; Destino: Fechamento de Caixa e Relatórios</td>
+                                    <td>Leitura: Todos | Escrita: Triggers Automáticas BD</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">cliente_id_cliente</td>
+                                    <td>Chave primária e estrangeira composta referenciando o cliente comprador (deve estar ativo conforme RN02).</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [FK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: <code>cliente.id_cliente</code> &rarr; Destino: Histórico de Compras</td>
+                                    <td>Leitura: Todos | Escrita: Atendente, Gerente</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">forma_pagamento_id_forma_pagamento</td>
+                                    <td>Chave primária e estrangeira composta referenciando o meio de pagamento escolhido.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [FK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: <code>forma_pagamento.id_forma_pagamento</code> &rarr; Destino: Conciliação de Caixa</td>
+                                    <td>Leitura: Todos | Escrita: Atendente, Gerente</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">usuario_id_usuario</td>
+                                    <td>Chave primária e estrangeira composta referenciando o atendente/vendedor que registrou a venda.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [FK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: <code>usuario.id_usuario</code> &rarr; Destino: Auditoria de Vendas por Operador</td>
+                                    <td>Leitura: Todos | Escrita: Sistema (Sessão Autenticada)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 10. TABELA: produto -->
+                <section class="dict-section" id="tabela_produto" data-table-name="produto">
+                    <div class="section-header">
+                        <div>
+                            <h3>Tabela: <code>produto</code></h3>
+                            <p class="table-purpose">Cadastro central dos itens eletrônicos comercializados pela TechStore. (Nota de Governança: No DDL físico atual consta apenas a chave primária <code>id_produto</code>; ver Parte 2 para restauração dos demais atributos).</p>
+                        </div>
+                        <span class="engine-tag">InnoDB | 1 Coluna no DDL</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="dict-table">
+                            <thead>
+                                <tr>
+                                    <th>Atributo</th>
+                                    <th>Descrição / Regra de Negócio</th>
+                                    <th>Tipo e Tamanho</th>
+                                    <th>Constraints</th>
+                                    <th>Privacidade (LGPD)</th>
+                                    <th>Linhagem (Data Lineage)</th>
+                                    <th>Controle de Acesso (RBAC)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="col-attr">id_produto</td>
+                                    <td>Identificador numérico único do produto eletrônico no catálogo.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Cadastro de Catálogo (RF03) &rarr; Destino: <code>item_pedido</code>, <code>historico_preco</code></td>
+                                    <td>Leitura: Todos | Escrita: Gerente, Admin</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 11. TABELA: usuario -->
+                <section class="dict-section" id="tabela_usuario" data-table-name="usuario">
+                    <div class="section-header">
+                        <div>
+                            <h3>Tabela: <code>usuario</code></h3>
+                            <p class="table-purpose">Armazena os colaboradores internos autorizados a operar o sistema ERP e suas credenciais criptografadas e perfis RBAC (SEG-02, SEG-03).</p>
+                        </div>
+                        <span class="engine-tag">InnoDB | 6 Colunas</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="dict-table">
+                            <thead>
+                                <tr>
+                                    <th>Atributo</th>
+                                    <th>Descrição / Regra de Negócio</th>
+                                    <th>Tipo e Tamanho</th>
+                                    <th>Constraints</th>
+                                    <th>Privacidade (LGPD)</th>
+                                    <th>Linhagem (Data Lineage)</th>
+                                    <th>Controle de Acesso (RBAC)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="col-attr">id_usuario</td>
+                                    <td>Identificador único do colaborador/operador no sistema ERP.</td>
+                                    <td><code>INT</code></td>
+                                    <td><strong>[PK] [NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Gestão de Acessos (RF06) &rarr; Destino: <code>pedido</code>, <code>historico_preco</code></td>
+                                    <td>Leitura: Gerente, Admin | Escrita: Admin</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">nome</td>
+                                    <td>Nome completo do funcionário operador do sistema.</td>
+                                    <td><code>VARCHAR(100)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-dp">[DP]</span></td>
+                                    <td>Origem: Cadastro RH / Admin (RF06) &rarr; Destino: Identificação em Comprovantes e Logs</td>
+                                    <td>Leitura: Todos | Escrita: Gerente, Admin</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">login</td>
+                                    <td>Identificador único de autenticação do usuário no PDV/ERP.</td>
+                                    <td><code>VARCHAR(50)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-dp">[DP]</span></td>
+                                    <td>Origem: Cadastro de Usuário (RF06) &rarr; Destino: Autenticação e Sessão (SEG-08)</td>
+                                    <td>Leitura: Gerente, Admin | Escrita: Admin</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">senha_hash</td>
+                                    <td>Hash criptográfico forte com salt (bcrypt ou Argon2id) da senha de acesso. Nunca armazenado em texto plano (SEG-03).</td>
+                                    <td><code>VARCHAR(255)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-dps">[DPS]</span></td>
+                                    <td>Origem: Aplicação Auth (Hash Salt) &rarr; Destino: Verificação de Login (Mascarado em Logs)</td>
+                                    <td>Leitura: Apenas Serviço Auth | Escrita: Serviço Auth / Admin</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">perfil</td>
+                                    <td>Papel funcional RBAC atribuído ao operador ('ATENDENTE', 'GERENTE' ou 'ADMIN') conforme SEG-02.</td>
+                                    <td><code>VARCHAR(20)</code></td>
+                                    <td><strong>[NOT NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Matriz de Permissões (RF06) &rarr; Destino: Autorização de Rotas e Ações ERP</td>
+                                    <td>Leitura: Gerente, Admin | Escrita: Admin</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-attr">deletado_em_data</td>
+                                    <td>Data e hora de revogação/exclusão lógica do acesso do colaborador, preservando trilha de vendas passadas.</td>
+                                    <td><code>DATETIME</code></td>
+                                    <td><strong>[NULL]</strong></td>
+                                    <td><span class="badge-lgpd badge-na">[N/A]</span></td>
+                                    <td>Origem: Desligamento / Soft Delete &rarr; Destino: Auditoria de Segurança</td>
+                                    <td>Leitura: Admin | Escrita: Admin</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- MENSAGEM DE NENHUM RESULTADO -->
+            <div id="noResultsMessage" class="no-results" style="display: none;">
+                <i class="fas fa-filter"></i>
+                <h3>Nenhum atributo ou tabela encontrado</h3>
+                <p>Tente buscar por outro termo técnico, nome de coluna ou regra de negócio.</p>
+            </div>
+
+            <!-- FOOTER -->
+            <footer class="main-footer">
+                <p><strong>TechStore — Distribuição Eletrônica</strong> | Governança de Dados (DAMA-DMBOK &amp; COBIT)</p>
+                <p>Desenvolvido por Júlio Cesar dos Santos Borges &amp; Rafael Sterzinger Silva | Orientação: Prof. Dr. Diego Carvalho</p>
+            </footer>
+        </main>
+    </div>
+
+    <!-- MODAL VISUALIZADOR DO DER COM PANZOOM -->
+    <div id="derModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="derModalTitle">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 id="derModalTitle"><i class="fas fa-sitemap"></i> Diagrama Entidade-Relacionamento (DER) — TechStore</h2>
+                <div class="modal-controls">
+                    <button type="button" id="zoomInBtn" class="btn-modal-ctrl" title="Aumentar Zoom (Zoom +)">
+                        <i class="fas fa-search-plus"></i> Zoom +
+                    </button>
+                    <button type="button" id="zoomOutBtn" class="btn-modal-ctrl" title="Diminuir Zoom (Zoom -)">
+                        <i class="fas fa-search-minus"></i> Zoom -
+                    </button>
+                    <button type="button" id="zoomResetBtn" class="btn-modal-ctrl" title="Restaurar Tamanho Original">
+                        <i class="fas fa-compress-arrows-alt"></i> Reset
+                    </button>
+                    <button type="button" id="closeDerModalBtn" class="btn-modal-close" title="Fechar Visualizador">
+                        <i class="fas fa-times"></i> Fechar
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body" id="panzoomContainer">
+                <div id="panzoomElement" class="panzoom-wrapper">
+                    <img src="assets/der.png" alt="Diagrama Entidade e Relacionamento do Sistema ERP TechStore" id="derImage">
+                </div>
+                <div class="modal-hint">
+                    Use o scroll do mouse para aplicar zoom ou clique e arraste para mover o diagrama.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panzoom.js v4.5.1 (CDN Oficial) -->
+    <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
+    <!-- Script Customizado -->
+    <script src="script.js"></script>
+</body>
+</html>
